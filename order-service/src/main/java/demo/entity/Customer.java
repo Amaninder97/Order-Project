@@ -1,6 +1,7 @@
 package demo.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Customer {
 
-	private int customerId;
-	private int customerName;
-	
+	@Id
+	private Integer customerId;
+	private String customerName;
 }

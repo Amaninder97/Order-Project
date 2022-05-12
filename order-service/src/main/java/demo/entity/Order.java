@@ -19,47 +19,12 @@ public class Order
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private int storeId;
-    private int customerId;
+    private Integer id;
+    private Integer storeId;
+    private Integer customerId;
     private String name;
+    private String state;
     private int qty;
     private double price;
     
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getStoreId() {
-		return storeId;
-	}
-	public void setStoreId(int storeId) {
-		this.storeId = storeId;
-	}
-	public int getCustomerId() {
-		return customerId;
-	}
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getQty() {
-		return qty;
-	}
-	public void setQty(int qty) {
-		this.qty = qty;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
 }
