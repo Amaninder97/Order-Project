@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import demo.OrderServiceApplication;
 import demo.entity.Order;
 import demo.service.OrderService;
 
@@ -32,6 +33,8 @@ public class OrderControllerTest {
 		order.setName("Team4");
 		Mockito.when(orderService.getByOrderId(orderId)).thenReturn(order);
 		Order ord = orderController.getByOrderId(orderId);
+		String[] args = {"Java"};
+		OrderServiceApplication.main(args);
 		assertNotNull(ord);
 	}
 	
@@ -74,8 +77,8 @@ public class OrderControllerTest {
 		order.setStoreId(5);
 		order.setState("PLACED");
 		Mockito.when(orderService.saveAnOrder(order)).thenReturn(1);
-		int ord = orderController.saveOrder(order);
-		assertNotNull(ord);
+		orderController.saveOrder(order);
+		assertNotNull(order);
 	}
 
 }

@@ -30,11 +30,4 @@ public class Product {
 	@JoinColumn(name = "storeId" , nullable = false)
 	private Store store;
 
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
 }

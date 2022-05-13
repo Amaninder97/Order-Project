@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import demo.entity.Order;
 import demo.service.OrderService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/order")
@@ -40,8 +42,11 @@ public class OrderController {
 	}
 
 	@PostMapping
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Order is Created"),
+			@ApiResponse(responseCode = "400", description = "Bad Request"),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public int saveOrder(@Valid @RequestBody Order order) {
+	public Integer saveOrder(@Valid @RequestBody Order order) {
 		return service.saveAnOrder(order);
 	}
 

@@ -2,7 +2,6 @@ package demo.service;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
@@ -115,7 +114,6 @@ public class OrderServiceTest {
 		Mockito.when(orderRepository.save(order)).thenReturn(order);
 		Integer orders = orderService.saveAnOrder(order);
 		assertNotNull(orders);
-		assertEquals(1, 1);
 	}
 
 	@Test
