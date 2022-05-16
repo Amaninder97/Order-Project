@@ -32,6 +32,7 @@ public class Order {
 	@Min(value = 1, message = "CustomerId cannot be Negative")
 	private Integer customerId;
 	
+	private Integer productId;
 	
 	@NotBlank(message = "name cannot be blank")
 	private String name;

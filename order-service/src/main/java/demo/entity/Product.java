@@ -21,13 +21,10 @@ import lombok.NoArgsConstructor;
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int productId;
 	
 	private String productName;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "storeId" , nullable = false)
-	private Store store;
+	private Integer storeId;
 
 }
