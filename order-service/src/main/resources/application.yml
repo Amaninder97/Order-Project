@@ -1,6 +1,11 @@
 server:
   port: 9192
 spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
   h2:
     console:
       enabled: true
@@ -10,6 +15,7 @@ spring:
     name: ORDER-SERVICE
   jpa:
     show-sql: true
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
         
 eureka:
   client:
@@ -22,6 +28,7 @@ eureka:
     hostname: localhost
    
 order:
-     defaultStoreId: 1
+  defaultStoreId: 1
+  inventoryUrl : http://localhost:9191/order/{orderId}
 
 
