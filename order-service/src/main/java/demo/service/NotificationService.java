@@ -13,7 +13,7 @@ public class NotificationService {
 	@Autowired
 	NotificationProxy notiProxy;
 
-	String defaultResponse = "Something Went Wrong Notification Could not be sent";
+	String defaultResponse = "Something Went Wrong,  Notification Could not be sent";
 
 	@CircuitBreaker(name = "sendAlert", fallbackMethod = "sendDefaultResponse")
 	public String sendCreateNotification(Notification notification) {
@@ -23,7 +23,7 @@ public class NotificationService {
 
 	}
 
-	@CircuitBreaker(name = "sendAlert", fallbackMethod = "sendDefaultResponse")
+	@CircuitBreaker(name = "cancelAlert", fallbackMethod = "sendDefaultResponse")
 	public String sendCancelNotification(Notification notification) {
 
 		notiProxy.emailOrderCancel(notification);

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import demo.entity.Notification;
 import demo.entity.Order;
 import demo.service.NotificationService;
 import demo.service.OrderService;
@@ -55,9 +56,10 @@ public class OrderController {
 			@ApiResponse(responseCode = "400", description = "Bad Request"),
 			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Integer saveOrder(@Valid @RequestBody Order order) {
-		
-		return service.saveAnOrder(order);
+	public String saveOrder(@Valid @RequestBody Order order) {
+		service.saveAnOrder(order);
+		return notiService.sendCreateNotification(new Notification("praveen@sapient.com", "Order is created"));
+
 	}
 
 	@GetMapping("/customer/{id}")
@@ -89,6 +91,6 @@ public class OrderController {
 	public String cancelOrder(@PathVariable("id") Integer orderId)
 	{
 		service.cancelOrder(orderId);
-		return "Order deleted sucessfully";
+		return notiService.sendCancelNotification(new Notification("praveen@sapient.com", "Order is cancelled"));
 	}
 }

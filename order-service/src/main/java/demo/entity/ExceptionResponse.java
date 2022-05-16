@@ -2,7 +2,15 @@ package demo.entity;
 
 import java.time.LocalDateTime;
 
+import demo.dto.ProductDto;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExceptionResponse {
 
    
@@ -13,22 +21,5 @@ public class ExceptionResponse {
 
     private String details;
 
-    public ExceptionResponse(String message, String details) {
-        
-        this.timestamp = LocalDateTime.now();
-        this.message = message;
-        this.details = details;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getDetails() {
-        return details;
-    }
+   
 }

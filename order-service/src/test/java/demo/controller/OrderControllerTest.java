@@ -2,8 +2,12 @@ package demo.controller;
 
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import demo.OrderServiceApplication;
 import demo.entity.Order;
+import demo.service.NotificationService;
 import demo.service.OrderService;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,6 +30,9 @@ public class OrderControllerTest {
 	@Mock
 	OrderService orderService;
 	
+	@Mock
+	NotificationService notiService; 
+	
 	@Test
 	public void testGetByOrderId() throws Exception {
 		Integer orderId = 1;
@@ -34,7 +42,7 @@ public class OrderControllerTest {
 		Mockito.when(orderService.getByOrderId(orderId)).thenReturn(order);
 		Order ord = orderController.getByOrderId(orderId);
 		String[] args = {"Java"};
-		OrderServiceApplication.main(args);
+		
 		assertNotNull(ord);
 	}
 	
@@ -77,8 +85,43 @@ public class OrderControllerTest {
 		order.setStoreId(5);
 		order.setState("PLACED");
 		Mockito.when(orderService.saveAnOrder(order)).thenReturn(1);
+		when(notiService.sendCreateNotification(Mockito.any())).thenReturn("Success");
 		orderController.saveOrder(order);
 		assertNotNull(order);
+	}
+	
+	@Test
+	public void testCancelOrder() throws Exception {
+		Order order = new Order();
+		order.setCustomerId(1);
+		order.setName("Team4");
+		order.setStoreId(5);
+		order.setState("PLACED");
+		
+		when(notiService.sendCancelNotification(Mockito.any())).thenReturn("Success");
+		orderController.cancelOrder(1);
+		assertNotNull(order);
+	}
+	
+	@Test
+	public void getPageTwoTest()
+	{
+		assertThrows(NoSuchElementException.class, () -> {
+			orderController.getPageTwo("name", 0, "ascending");
+		});
+		
+		
+	}
+	
+	
+	
+	@Test
+	public void getPageTwoTestDesc()
+	{
+            Order order = new Order();
+			when(orderService.sortedOrderList(Mockito.any())).thenReturn(List.of(order));
+			orderController.getPageTwo("name", 0, "descending");
+		
 	}
 
 }
