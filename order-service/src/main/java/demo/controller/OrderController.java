@@ -1,10 +1,15 @@
 package demo.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,5 +63,20 @@ public class OrderController {
 	@GetMapping("/state/{state}")
 	public List<Order> filterOrderByState(@PathVariable("state") String state) {
 		return service.getByState(state);
+	}
+
+	@GetMapping("list/sort/{sort}/page/{pageno}/order/{order}")
+	public List<Order> getPageTwo(@PathVariable("sort") String sort, @PathVariable("pageno") Integer pageno,
+			@PathVariable("order") String order) {
+		Pageable paging = null;
+		if (order.equalsIgnoreCase("ascending")) {
+			paging = PageRequest.of((pageno), 5, Sort.by(sort).ascending());
+		} else {
+			paging = PageRequest.of((pageno), 5, Sort.by(sort).descending());
+		}
+		List<Order> orderlist = service.sortedOrderList(paging);
+		if (orderlist.isEmpty())
+			throw new NoSuchElementException("No Result found page");
+		return orderlist;
 	}
 }

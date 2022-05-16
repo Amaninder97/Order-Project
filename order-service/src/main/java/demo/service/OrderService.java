@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import demo.entity.Order;
@@ -82,5 +84,10 @@ public class OrderService {
 			return order;
 		else
 			throw new NoSuchElementException("No Orders with " + state + "State");
+	}
+
+	public List<Order> sortedOrderList(Pageable paging) {
+		Page<Order> page = repository.findAll(paging);
+		return page.getContent();
 	}
 }
