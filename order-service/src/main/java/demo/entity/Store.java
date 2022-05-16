@@ -25,7 +25,6 @@ public class Store {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int storeId;
 	
-	@OneToMany(mappedBy = "store")
-	private List<Product> products = new ArrayList<>();
+	private String storeName;
 
 }
