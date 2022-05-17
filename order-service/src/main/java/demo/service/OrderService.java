@@ -21,8 +21,8 @@ public class OrderService {
 	@Autowired
 	private OrderRepository repository;
 
-	@Autowired
-	private RestTemplate template;
+//	@Autowired
+//	private RestTemplate template;
 
 	@Value("${order.defaultStoreId}")
 	private Integer defaultStoreId;

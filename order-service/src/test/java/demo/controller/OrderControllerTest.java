@@ -41,8 +41,6 @@ public class OrderControllerTest {
 		order.setName("Team4");
 		Mockito.when(orderService.getByOrderId(orderId)).thenReturn(order);
 		Order ord = orderController.getByOrderId(orderId);
-		String[] args = {"Java"};
-		
 		assertNotNull(ord);
 	}
 	
@@ -113,15 +111,12 @@ public class OrderControllerTest {
 		
 	}
 	
-	
-	
 	@Test
-	public void getPageTwoTestDesc()
-	{
-            Order order = new Order();
-			when(orderService.sortedOrderList(Mockito.any())).thenReturn(List.of(order));
-			orderController.getPageTwo("name", 0, "descending");
-		
+	public void getPageTwoTestDesc() {
+		Order order = new Order();
+		when(orderService.sortedOrderList(Mockito.any())).thenReturn(List.of(order));
+		assertNotNull(orderController.getPageTwo("name", 0, "descending"));
+
 	}
 
 }
