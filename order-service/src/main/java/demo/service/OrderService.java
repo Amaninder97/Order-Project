@@ -1,6 +1,8 @@
 package demo.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import demo.entity.Order;
 import demo.repository.OrderRepository;
@@ -23,6 +26,9 @@ public class OrderService {
 
 	@Value("${order.defaultStoreId}")
 	private Integer defaultStoreId;
+	
+	@Value("${order.inventoryUrl}")
+	private String inventoryUrl;
 
 	/*
 	 * public TransactionResponse saveOrder(TransactionRequest request) { String
@@ -89,5 +95,17 @@ public class OrderService {
 	public List<Order> sortedOrderList(Pageable paging) {
 		Page<Order> page = repository.findAll(paging);
 		return page.getContent();
+	}
+
+	public void cancelOrder(Integer orderId) {
+
+		repository.deleteById(orderId);
+		
+//	    Map<String,Integer> queryParam = new HashMap<>();
+//	    queryParam.put("orderId", orderId);
+//	    
+//	    String response = template.getForObject(inventoryUrl, String.class, queryParam);
+//	    System.out.println("Response: " + response);
+		
 	}
 }

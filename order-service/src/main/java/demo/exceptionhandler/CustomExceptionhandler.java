@@ -1,5 +1,6 @@
 package demo.exceptionhandler;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,8 @@ public class CustomExceptionhandler extends ResponseEntityExceptionHandler {
 
 	
 	@ExceptionHandler(NoSuchElementException.class)
-	private ResponseEntity<ExceptionResponse> handleNoSuchElementException(NoSuchElementException ex) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse("No Result found page","No data found");
+	public ResponseEntity<ExceptionResponse> handleNoSuchElementException(NoSuchElementException ex) {
+		ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), "No Result found page","No data found");
 		logger.error("No Result found page: " + ex.getMessage());
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}

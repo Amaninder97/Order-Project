@@ -24,7 +24,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@NotNull
+	@NotNull(message = "Store id cannot be null")
 	private Integer storeId;
 	
 	
@@ -32,11 +32,14 @@ public class Order {
 	@Min(value = 1, message = "CustomerId cannot be Negative")
 	private Integer customerId;
 	
+	@NotNull(message = "Product id cannot be null")
+	@Min(value = 1, message = "Product id cannot be Negative")
 	private Integer productId;
 	
 	@NotBlank(message = "name cannot be blank")
 	private String name;
 	
+	@NotBlank(message = "order state cannot be blank")
 	private String state;
 	
 	@NotNull

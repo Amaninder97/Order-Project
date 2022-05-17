@@ -6,11 +6,11 @@ import java.util.NoSuchElementException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +31,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 public class OrderController {
 	@Autowired
 	private OrderService service;
-
+	
 	@Autowired
 	private NotificationService notiService;
 
@@ -57,9 +57,9 @@ public class OrderController {
 			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String saveOrder(@Valid @RequestBody Order order) {
-
 		service.saveAnOrder(order);
-		return notiService.sendCancelNotification(new Notification("dv@kv.com", "Order Created Successfully"));
+		return notiService.sendCreateNotification(new Notification("praveen@sapient.com", "Order is created"));
+
 	}
 
 	@GetMapping("/customer/{id}")
@@ -85,5 +85,12 @@ public class OrderController {
 		if (orderlist.isEmpty())
 			throw new NoSuchElementException("No Result found page");
 		return orderlist;
+	}
+	
+	@DeleteMapping("/{id}")
+	public String cancelOrder(@PathVariable("id") Integer orderId)
+	{
+		service.cancelOrder(orderId);
+		return notiService.sendCancelNotification(new Notification("praveen@sapient.com", "Order is cancelled"));
 	}
 }

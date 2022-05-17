@@ -1,7 +1,5 @@
 package demo.entity;
 
-import org.springframework.stereotype.Component;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

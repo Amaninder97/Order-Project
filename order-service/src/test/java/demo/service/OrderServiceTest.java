@@ -3,6 +3,7 @@ package demo.service;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import demo.entity.Order;
 import demo.repository.OrderRepository;
@@ -147,5 +153,18 @@ public class OrderServiceTest {
 			List<Order> ord = orderService.getByState(state);
 			assertNull(ord);
 		});
+	}
+	
+	@Test
+	public void sortedOrderListTest()
+	{
+		Pageable paging = PageRequest.of((1), 5, Sort.by("sort").ascending());
+		Order order = new Order();
+		List<Order> orders = List.of(order);
+		Page<Order> page = new PageImpl<>(orders );
+		when(orderRepository.findAll(paging)).thenReturn(page);
+		orderService.cancelOrder(1);
+		assertNotNull(orderService.sortedOrderList(paging));
+		
 	}
 }
