@@ -26,7 +26,7 @@ public class NotificationService {
 	@CircuitBreaker(name = "sendAlert", fallbackMethod = "sendDefaultResponse")
 	public String sendCancelNotification(Notification notification) {
 
-		notiProxy.emailOrderCancel(notification);
+	//	notiProxy.emailOrderCancel(notification);
 		return "Success";
 
 	}

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import demo.entity.Notification;
 import demo.entity.Order;
 import demo.service.NotificationService;
 import demo.service.OrderService;
@@ -30,7 +31,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 public class OrderController {
 	@Autowired
 	private OrderService service;
-	
+
 	@Autowired
 	private NotificationService notiService;
 
@@ -55,9 +56,10 @@ public class OrderController {
 			@ApiResponse(responseCode = "400", description = "Bad Request"),
 			@ApiResponse(responseCode = "500", description = "Internal Server Error") })
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Integer saveOrder(@Valid @RequestBody Order order) {
-		
-		return service.saveAnOrder(order);
+	public String saveOrder(@Valid @RequestBody Order order) {
+
+		service.saveAnOrder(order);
+		return notiService.sendCancelNotification(new Notification("dv@kv.com", "Order Created Successfully"));
 	}
 
 	@GetMapping("/customer/{id}")
