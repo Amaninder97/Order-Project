@@ -26,8 +26,6 @@ public class NotificationServiceTest {
 	{
 		Notification notification = new Notification("praveen@sapient.com", "success");
 		Throwable ex = new Throwable();
-		String[] args = {"Java"};
-		OrderServiceApplication.main(args);
 		notificationService.sendDefaultResponse(ex);
 		assertNotNull(notificationService.sendCancelNotification(notification));
         assertNotNull(notificationService.sendCreateNotification(notification));
