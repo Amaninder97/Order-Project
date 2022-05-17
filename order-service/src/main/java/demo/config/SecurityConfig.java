@@ -12,7 +12,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeRequests(authorize->authorize.anyRequest().authenticated())
+		httpSecurity
+		.authorizeRequests(exchange->exchange.antMatchers("*/h2-console/*").permitAll())
+		.authorizeRequests(authorize->authorize.antMatchers("*/order/*").authenticated())
 		.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 	}
 }
